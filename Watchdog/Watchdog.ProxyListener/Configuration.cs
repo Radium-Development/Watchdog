@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Watchdog.ProxyListener.IO;
 using Watchdog.ProxyListener.Models;
+using Watchdog.ProxyListener.Exceptions;
 
 namespace Watchdog.ProxyListener
 {
