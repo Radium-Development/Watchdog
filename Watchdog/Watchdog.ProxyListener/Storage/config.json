@@ -1,0 +1,8 @@
+{
+  "WatchdogListenerPort": 3000,
+  "WatchdogOutgoingPort": 3001,
+  "ListnerIPs": [
+    "127.0.0.1",
+    "localhost"
+  ]
+}

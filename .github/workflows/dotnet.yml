@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./Watchdog/Watchdog.ProxyListener/
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
@@ -16,6 +18,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Install dependencies
+      working-directory: ${{env.working-directory}}
       run: dotnet restore
     - name: Build
+      working-directory: ${{env.working-directory}}
       run: dotnet build --configuration Release --no-restore
