@@ -1,0 +1,11 @@
+{
+  "WatchdogListenerPort": 3000,
+  "WatchdogOutgoingPort": 3001,
+  "ListnerIPs": [
+    "127.0.0.1",
+    "localhost"
+  ],
+  "RemoteDBConnectionString": "mongodb://Watchdog:Watchdog@10.0.0.171:27017/WatchdogSuspects?authSource=WatchdogSuspects",
+  "RemoteDBDatabaseName": "WatchdogSuspects",
+  "RemoteDBCollectionName": "strings"
+}
