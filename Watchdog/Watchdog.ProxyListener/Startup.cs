@@ -6,6 +6,8 @@ using Watchdog.ProxyListener.Exceptions;
 using Watchdog.ProxyListener.IO;
 using Watchdog.ProxyListener.Models;
 using Watchdog.ProxyListener.Singletons;
+using Watchdog.ProxyListener.Data;
+using Watchdog.ProxyListener.Singletons.Logging;
 
 namespace Watchdog.ProxyListener {
     public class Startup {
