@@ -4,7 +4,7 @@ using Watchdog.ProxyListener.Models;
 
 namespace Watchdog.ProxyListener.Data
 {
-    class RemoteDB
+    public class RemoteDB
     {
         private readonly IMongoCollection<AttackString> _attackStrings;
         private Config _config { get; }
