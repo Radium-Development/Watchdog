@@ -11,7 +11,7 @@ namespace Watchdog.ProxyListener.Data
 
         public RemoteDB(Config config)
         {
-            _config = config;
+            this._config = config;
             // connect remote mongodb
             var client = new MongoClient(_config.RemoteDBConnectionString);
             var database = client.GetDatabase(_config.RemoteDBDatabaseName);

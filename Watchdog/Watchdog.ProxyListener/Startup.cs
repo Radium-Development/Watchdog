@@ -23,11 +23,13 @@ namespace Watchdog.ProxyListener {
             services.AddSingleton<Configuration>(configuration);    // Both Configuration and Config singletons are different
             services.AddSingleton<Config>(configuration);           // Configuration handles loading the config, while Config is the actual config
             services.AddSingleton<WatchdogListener>();
+            services.AddSingleton<RemoteDB>();
         }
 
-        public void Configure(WatchdogListener httpServer)
+        public void Configure(WatchdogListener httpServer, RemoteDB database, ILogger logger)
         {
             httpServer.StartListener();
+            logger.log(database.GetAllAttackStrings().First().String);
         }
     }
 }

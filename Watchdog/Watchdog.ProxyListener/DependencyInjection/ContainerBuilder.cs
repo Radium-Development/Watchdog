@@ -38,7 +38,7 @@ namespace Watchdog.ProxyListener.DependencyInjection
             return this;
         }
 
-        public ContainerBuilder WithLogger<T>(LogSeverity severity = LogSeverity.DEBUG) where T : class, ILogger, new()
+        public ContainerBuilder WithLogger<T>(LogSeverity severity = LogSeverity.INFO) where T : class, ILogger, new()
         {
             ILogger logger = (T)new T();
             logger.SetSeverity(severity);
