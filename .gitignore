@@ -390,3 +390,6 @@ MigrationBackup/
 *.exe
 *.out
 *.app
+
+# Application Specific
+Storage/config.json

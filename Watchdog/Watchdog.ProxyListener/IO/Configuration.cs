@@ -7,7 +7,7 @@ using Watchdog.ProxyListener.IO;
 using Watchdog.ProxyListener.Models;
 using Watchdog.ProxyListener.Exceptions;
 
-namespace Watchdog.ProxyListener
+namespace Watchdog.ProxyListener.IO
 {
     public class Configuration : JsonInterfacer<Config>
     {

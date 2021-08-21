@@ -5,8 +5,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Watchdog.ProxyListener.Singletons.Logging;
 
-namespace Watchdog.ProxyListener
+namespace Watchdog.ProxyListener.DependencyInjection
 {
     public class ContainerBuilder
     {
@@ -34,6 +35,14 @@ namespace Watchdog.ProxyListener
         public ContainerBuilder WithCLIParser<T>() where T : class
         {
             services.AddSingleton<T>();
+            return this;
+        }
+
+        public ContainerBuilder WithLogger<T>(LogSeverity severity = LogSeverity.DEBUG) where T : class, ILogger, new()
+        {
+            ILogger logger = (T)new T();
+            logger.SetSeverity(severity);
+            services.AddSingleton<ILogger>(logger);
             return this;
         }
 
