@@ -31,7 +31,7 @@ namespace Watchdog.ProxyListener {
         public void Configure(WatchdogListener httpServer, RemoteDB database, ILogger logger)
         {
             httpServer.StartListener();
-            logger.log(database.GetAllAttackStrings().First().String);
+            logger.Log(database.GetAllAttackStrings().First().String);
         }
     }
 }
