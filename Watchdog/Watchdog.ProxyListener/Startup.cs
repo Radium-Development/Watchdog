@@ -8,6 +8,7 @@ using Watchdog.ProxyListener.Models;
 using Watchdog.ProxyListener.Singletons;
 using Watchdog.ProxyListener.Data;
 using Watchdog.ProxyListener.Singletons.Logging;
+using System.Linq;
 
 namespace Watchdog.ProxyListener {
     public class Startup {
@@ -30,8 +31,7 @@ namespace Watchdog.ProxyListener {
 
         public void Configure(WatchdogListener httpServer, RemoteDB database, ILogger logger)
         {
-            httpServer.StartListener();
-            logger.Log(database.GetAllAttackStrings().First().String);
+            httpServer.StartListener(); // This currently hangs the thread. Leave it for last
         }
     }
 }

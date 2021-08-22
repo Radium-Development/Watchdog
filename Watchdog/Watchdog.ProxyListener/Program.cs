@@ -26,13 +26,19 @@ namespace Watchdog.ProxyListener
                 switch (command.command)
                 {
                     case "stop":
+                    case "exit":
                         appShouldTerminate = true;
                         break;
                     case "help":
                     case "?":
-                        Log("Watchdog Help:");
-                        Log(" 'stop' - Stop the WatchdogListener service");
-                        Log(" '?' - Prints this message");
+                        Log("(&9)Watchdog Help(&r):");
+                        Log(" '(&e)stop(&r)' - Stop the WatchdogListener service");
+                        Log(" '(&e)?(&r)' - Prints this message");
+                        break;
+                    case "status":
+                        Log("Watchdog Listener: (&a)OK");
+                        break;
+                    case null:
                         break;
                     default:
                         Log("Unknown command. Type '?' for help.");
@@ -40,8 +46,8 @@ namespace Watchdog.ProxyListener
                 }
             }
             WatchdogListener listener = (WatchdogListener)Services.GetService(typeof(WatchdogListener));
+            Log("Stopping WatchdogListener Service...");
             listener.Listening = false;
-            listener.TerminateAllClients();
         }
 
         private static void Log(string msg, ConsoleColor color = ConsoleColor.Gray) =>
@@ -66,7 +72,7 @@ namespace Watchdog.ProxyListener
         public string command { // lowercase version of command string
             get
             {
-                return label.ToLower();
+                return label?.ToLower();
             }
         }
         public string[] args { get; set; }

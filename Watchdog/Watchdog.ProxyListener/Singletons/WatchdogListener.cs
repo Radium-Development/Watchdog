@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -45,23 +46,22 @@ namespace Watchdog.ProxyListener.Singletons
             listenerThread.Start();
         }
 
-        public void TerminateAllClients()
-        {
-            foreach (var client in _clients.Values)
-            {
-                client.Close();
-            }
-        }
-
         private void ListenerThread()
         {
             _logger.Log($"Started WatchdogListener Service on Port {_config.WatchdogListenerPort} With Thread ID: {listenerThread.ManagedThreadId}", LogSeverity.INFO);
             tcpListener.Start();
-            _logger.Log("Waiting for connectings...", LogSeverity.INFO);
+            _logger.Log("Waiting for connections...", LogSeverity.INFO);
             while (this.Listening)
             {
-                
-                TcpClient client = tcpListener.AcceptTcpClient();
+                TcpClient client;
+
+                var sockl = new ArrayList { tcpListener.Server };
+                Socket.Select(sockl, null, null, 1000000);
+                if (sockl.Contains(tcpListener.Server))
+                    client = tcpListener.AcceptTcpClient();
+                else
+                    continue;
+
                 _logger.Log("Client Connected!", LogSeverity.INFO);
 
                 Thread thread = new Thread(new ParameterizedThreadStart(HandleClient));
