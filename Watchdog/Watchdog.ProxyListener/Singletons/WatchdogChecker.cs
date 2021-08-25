@@ -11,11 +11,11 @@ namespace Watchdog.ProxyListener.Singletons
 
         private ILogger _logger { get; }
 
-        private RemoteDB _database { get;  }
+        private IRemoteDB _database { get;  }
 
         private IEnumerable<AttackString> _attackStrings { get; }
 
-        public WatchdogChecker(Config config, ILogger logger, RemoteDB database)
+        public WatchdogChecker(Config config, ILogger logger, IRemoteDB database)
         {
             this._config = config;
             this._logger = logger;
