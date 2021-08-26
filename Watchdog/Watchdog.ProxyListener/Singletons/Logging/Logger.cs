@@ -29,7 +29,7 @@ namespace Watchdog.ProxyListener.Singletons.Logging
                     while(sections.Count > 0)
                     {
                         var section = sections.Dequeue();
-                        string msg;
+                        //string msg;
                         while ((section.StartsWith("(&") || section.StartsWith("(*")) && section.EndsWith(")"))
                         {
                             var clrSelection = section[2].ToString();

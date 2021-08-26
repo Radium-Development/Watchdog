@@ -2,6 +2,7 @@
 using Watchdog.ProxyListener.Data;
 using Watchdog.ProxyListener.Models;
 using Watchdog.ProxyListener.Singletons.Logging;
+using System.Text.RegularExpressions;
 
 namespace Watchdog.ProxyListener.Singletons
 {
@@ -27,14 +28,16 @@ namespace Watchdog.ProxyListener.Singletons
         public bool ContainsAttackString(string data)
         {
             bool contains = false;
+            Regex rx = null;
 
             // see if data contains for every attack string
-            foreach (AttackString str in _attackStrings)
+            foreach (AttackString attackStr in _attackStrings)
             {
-                if (data.Contains(str.String))
+                rx =  new Regex(@attackStr.String, RegexOptions.IgnoreCase);
+                if (rx.IsMatch(data))
                 {
                     contains = true;
-                    _logger.Log($"Attack string of type [{str.Type}] found: {str.String}", LogSeverity.INFO);
+                    _logger.Log($"Attack string of type [{attackStr.Type}] found (REGEX): {attackStr.String}", LogSeverity.INFO);
                     break;  // only need to find once
                 }
             }

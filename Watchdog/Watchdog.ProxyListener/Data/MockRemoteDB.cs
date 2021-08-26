@@ -16,15 +16,15 @@ namespace Watchdog.ProxyListener.Data
 
             // mock data
             AttackString mockData1 = new AttackString();
-            mockData1.String = "<iframe onbeforeload";
+            mockData1.String = "<iframe\\s*onbeforeload";
             mockData1.Type = "Cross Site Scripting";
 
             AttackString mockData2 = new AttackString();
-            mockData2.String = "<body onkeydown body";
+            mockData2.String = "<body\\s*onkeydown\\s*body";
             mockData2.Type = "Cross Site Scripting";
 
             AttackString mockData3 = new AttackString();
-            mockData3.String = "<script>alert";
+            mockData3.String = "<script>\\s*alert";
             mockData3.Type = "Cross Site Scripting";
 
             mockList.Add(mockData1);
