@@ -14,7 +14,7 @@ namespace Watchdog.ProxyListener.Singletons
 
         private IRemoteDB _database { get;  }
 
-        private IEnumerable<AttackString> _attackStrings { get; }
+        private List<Regex> _attackStrRegexList { get; }
 
         public WatchdogChecker(Config config, ILogger logger, IRemoteDB database)
         {
@@ -22,22 +22,25 @@ namespace Watchdog.ProxyListener.Singletons
             this._logger = logger;
             this._database = database;
             // fetch documents from remote database and save locally to save bandwidth
-            this._attackStrings = _database.GetAllAttackStrings();
+            this._attackStrRegexList = new List<Regex>();
+            foreach (AttackString attackStr in _database.GetAllAttackStrings())
+            {
+                Regex rx = new Regex(@attackStr.String, RegexOptions.IgnoreCase);
+                this._attackStrRegexList.Add(rx);
+            }
         }
 
         public bool ContainsAttackString(string data)
         {
             bool contains = false;
-            Regex rx = null;
 
             // see if data contains for every attack string
-            foreach (AttackString attackStr in _attackStrings)
+            foreach (Regex rx in _attackStrRegexList)
             {
-                rx =  new Regex(@attackStr.String, RegexOptions.IgnoreCase);
                 if (rx.IsMatch(data))
                 {
                     contains = true;
-                    _logger.Log($"Attack string of type [{attackStr.Type}] found (REGEX): {attackStr.String}", LogSeverity.INFO);
+                    _logger.Log($"Attack string REGEX match found: {rx.ToString()}", LogSeverity.INFO);
                     break;  // only need to find once
                 }
             }
